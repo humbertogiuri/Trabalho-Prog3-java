@@ -18,10 +18,25 @@ public class Processador {
 	public void preencheListaDePPGs() throws IOException {
 		String[] linha = this.leitorDoArqivo.lerLinhaDoCsv();
 		while(linha != null) {			
+			
 			String codigoPPG = this.leitorDoArqivo.getColuna(0);
 			String sigla = this.leitorDoArqivo.getColuna(2);
 			String nomeFaculdade = this.leitorDoArqivo.getColuna(3);
-			this.listaDePPGs.add(new PPG(codigoPPG, sigla, nomeFaculdade));
+			int idSubTipo = Integer.parseInt(this.leitorDoArqivo.getColuna(7));
+			this.listaDePPGs.add(new PPG(codigoPPG, sigla, nomeFaculdade, idSubTipo));
+			
+			String titulo = this.leitorDoArqivo.getColuna(9);
+			String natureza = this.leitorDoArqivo.getColuna(8);
+			String idioma = this.leitorDoArqivo.getColuna(18);
+			String cidade = this.leitorDoArqivo.getColuna(16);
+			String paginaInicial = this.leitorDoArqivo.getColuna(14);
+			String paginaFinal = this.leitorDoArqivo.getColuna(13);
+			
+			if(idSubTipo == 8) {
+				String evento = this.leitorDoArqivo.getColuna(15);
+				this.listaDePPGs.                      
+			}
+			
 			linha = this.leitorDoArqivo.lerLinhaDoCsv();
 		}
 	}
