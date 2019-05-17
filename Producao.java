@@ -42,7 +42,7 @@ public abstract class Producao {
 		return true;
 	}
 	
-	public void calculaQuantidadeDePaginas() {
+	private void calculaQuantidadeDePaginas() {
 		if(this.validaPaginaInicial() == true && this.validaPaginaFinal() == true) {
 			int paginaInicial = Integer.parseInt(this.paginaInicial);
 			int paginaFinal = Integer.parseInt(this.paginaFinal);
@@ -52,10 +52,23 @@ public abstract class Producao {
 			if(soma > 2000) {
 				this.quantidadeDePaginas = -1; //valor de erro
 			}
+			
+			else if(paginaFinal < paginaInicial) {
+				this.quantidadeDePaginas = -1; //valor de erro
+			}
 			else {
 				this.quantidadeDePaginas = soma;
 			}
 		}
+		
+		else {
+			this.quantidadeDePaginas = -1; //valor de erro
+		}
+	}
+	
+	public int getQuantidadeDePaginas() {
+		this.calculaQuantidadeDePaginas();
+		return this.quantidadeDePaginas;
 	}
 	
 }

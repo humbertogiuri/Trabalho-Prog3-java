@@ -3,23 +3,24 @@ import java.io.IOException;
 import java.util.*;
 
 public class Processador {
+	
 	private LeitorDeCsv leitorDoArqivo;
 	private List<PPG> listaDePPGs = new ArrayList<PPG>();
-	private String[] cabecalho;
+	private String[] cabecalho;	
 
+	
 	public Processador(String caminho) throws IOException {
 		this.leitorDoArqivo = new LeitorDeCsv(caminho);
 	}
+	
 	
 	public void preencheCabecalho() throws IOException {
 		this.cabecalho = this.leitorDoArqivo.lerCabecalhoCsv();
 	}
 	
-	private String[] retornaDadosPadrao() {
-		return null;
-	}
 	
 	public void preencheListaDePPGs() throws IOException {
+		this.preencheCabecalho();
 		String[] linha = this.leitorDoArqivo.lerLinhaDoCsv();
 		while(linha != null) {			
 			
@@ -49,5 +50,55 @@ public class Processador {
 			linha = this.leitorDoArqivo.lerLinhaDoCsv();
 		}
 	}
+	
+	
+	public int retornaQuantidadeDePPGs() {
+		List<String> lista = new ArrayList<String>();
+		for(int i = 0; i < this.listaDePPGs.size(); i++) {
+			
+			if(!lista.contains(listaDePPGs.get(i).getCodigo())) {
+				
+				lista.add(listaDePPGs.get(i).getCodigo());
+			}
+		}
+		return lista.size();
+	}
+	
+	
+	public int retornaQuantidadeDeInstituicoesPublicaramEmAnais() {
+		List<String> lista = new ArrayList<String>();
+		
+		for(int i = 0; i < this.listaDePPGs.size(); i++) {
+			Instituicao instituicao = listaDePPGs.get(i).getInstituicao();
+			String nomeSigla = instituicao.getNome() + "-" + instituicao.getSigla();
+			
+			if(!lista.contains(nomeSigla)) {
+				lista.add(nomeSigla);
+			}
+		}
+		
+		return lista.size();
+	}
+	
+	
+	public int retornaQuantidadeDeProducoes() {
+		return this.listaDePPGs.size();
+	}
+
+	
+	public long retornaQuantidadeDePaginasTotal() {
+		long soma = 0;
+		
+		for(int i = 0; i < this.listaDePPGs.size(); i++) {
+			int valorDePaginas = this.listaDePPGs.get(i).getQuantidadeDePaginas();
+			if(valorDePaginas != -1) {
+				soma += valorDePaginas;
+			}
+			
+		}
+		
+		return soma;
+	}
+	
 }
 	
