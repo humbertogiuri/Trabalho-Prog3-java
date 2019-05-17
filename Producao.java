@@ -16,4 +16,46 @@ public abstract class Producao {
 		this.paginaFinal = paginaFinal;
 	}
 	
+	private boolean validaPaginaInicial() {
+		try {
+			int pagina = Integer.parseInt(this.paginaInicial);
+			if(pagina < 0) {
+				return false;
+			}
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean validaPaginaFinal() {
+		try {
+			int pagina = Integer.parseInt(this.paginaFinal);
+			if(pagina < 0) {
+				return false;
+			}
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void calculaQuantidadeDePaginas() {
+		if(this.validaPaginaInicial() == true && this.validaPaginaFinal() == true) {
+			int paginaInicial = Integer.parseInt(this.paginaInicial);
+			int paginaFinal = Integer.parseInt(this.paginaFinal);
+			
+			int soma = paginaFinal - paginaInicial + 1;
+			
+			if(soma > 2000) {
+				this.quantidadeDePaginas = -1; //valor de erro
+			}
+			else {
+				this.quantidadeDePaginas = soma;
+			}
+		}
+	}
+	
 }
