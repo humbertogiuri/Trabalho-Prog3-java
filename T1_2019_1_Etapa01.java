@@ -5,9 +5,8 @@ public class T1_2019_1_Etapa01 {
 	//br-colsucup-prod-detalhe-bibliografica-2017-2019-02-01-anais
 	public static void main(String[] args) throws IOException {
 		
-		Locale.setDefault(Locale.US);
 		Scanner entrada = new Scanner(System.in);
-		String caminhoDoArquivoCsv = entrada.nextLine();
+		String caminhoDoArquivoCsv = entrada.nextLine() + entrada.nextLine();
 		
 		//String caminhoDoArquivoCsv = "/home/humberto/Downloads/br-colsucup-prod-detalhe-bibliografica-2017-2019-02-01-anais.csv";
 		try {
