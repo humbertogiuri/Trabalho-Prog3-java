@@ -86,8 +86,8 @@ public class Processador {
 	}
 
 	
-	public long retornaQuantidadeDePaginasTotal() {
-		long soma = 0;
+	public int retornaQuantidadeDePaginasTotal() {
+		int soma = 0;
 		
 		for(int i = 0; i < this.listaDePPGs.size(); i++) {
 			int valorDePaginas = this.listaDePPGs.get(i).getQuantidadeDePaginas();
@@ -98,6 +98,21 @@ public class Processador {
 		}
 		
 		return soma;
+	}
+	
+	
+	public double retornaMediaDePaginas() {
+		int soma = 0;
+		int contador = 0;
+		for(int i = 0; i < this.listaDePPGs.size(); i++) {
+			int valorDePaginas = this.listaDePPGs.get(i).getQuantidadeDePaginas();
+			if(valorDePaginas != -1) {
+				soma += valorDePaginas;
+				contador++;
+			}
+			
+		}
+		return (double) soma / (double)contador;
 	}
 	
 }
