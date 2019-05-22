@@ -18,6 +18,14 @@ public class Processador {
 		this.cabecalho = this.leitorDoArqivo.lerCabecalhoCsv();
 	}
 	
+	private int retornaIndiceDaStringNoCabecalho(String entrada) {
+		for(int i = 0; i < this.cabecalho.length; i++) {
+			if(this.cabecalho[i].equals(entrada)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 	public void preencheListaDePPGs() throws IOException {
 		this.preencheCabecalho();
@@ -27,21 +35,21 @@ public class Processador {
 			Producao producaoAtual = null;
 			Instituicao instituicaoAtual = null;
 			
-			String codigoPPG = this.leitorDoArqivo.getColuna(0);
-			String sigla = this.leitorDoArqivo.getColuna(2);
-			String nomeFaculdade = this.leitorDoArqivo.getColuna(3);
-			int idSubTipo = Integer.parseInt(this.leitorDoArqivo.getColuna(7));
+			String codigoPPG = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("CD_PROGRAMA_IES"));
+			String sigla = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("SG_ENTIDADE_ENSINO"));
+			String nomeFaculdade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_ENTIDADE_ENSINO"));
+			int idSubTipo = Integer.parseInt(this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("ID_SUBTIPO_PRODUCAO")));
 			
-			String titulo = this.leitorDoArqivo.getColuna(9);
-			String natureza = this.leitorDoArqivo.getColuna(8);
-			String idioma = this.leitorDoArqivo.getColuna(18);
-			String cidade = this.leitorDoArqivo.getColuna(16);
-			String paginaInicial = this.leitorDoArqivo.getColuna(14);
-			String paginaFinal = this.leitorDoArqivo.getColuna(13);
+			String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
+			String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+			String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
+			String cidade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_CIDADE"));
+			String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
+			String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
 			
 			
 			if(idSubTipo == 8) {
-				String evento = this.leitorDoArqivo.getColuna(15);
+				String evento = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_EVENTO"));
 				producaoAtual = new Anais(titulo, natureza, idioma, cidade, paginaInicial, paginaFinal, evento);
 				instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
 				this.listaDePPGs.add(new PPG(codigoPPG, instituicaoAtual, producaoAtual));				
@@ -86,24 +94,10 @@ public class Processador {
 	}
 
 	
-	public int retornaQuantidadeDePaginasTotal() {
-		int soma = 0;
-		
-		for(int i = 0; i < this.listaDePPGs.size(); i++) {
-			int valorDePaginas = this.listaDePPGs.get(i).getQuantidadeDePaginas();
-			if(valorDePaginas != -1) {
-				soma += valorDePaginas;
-			}
-			
-		}
-		
-		return soma;
-	}
-	
-	
-	public double retornaMediaDePaginas() {
+	public int[] retornaQuantidadeETotal() {
 		int soma = 0;
 		int contador = 0;
+		
 		for(int i = 0; i < this.listaDePPGs.size(); i++) {
 			int valorDePaginas = this.listaDePPGs.get(i).getQuantidadeDePaginas();
 			if(valorDePaginas != -1) {
@@ -112,7 +106,21 @@ public class Processador {
 			}
 			
 		}
-		return (double) soma / (double)contador;
+		int[] vetorDeDados = new int[2];
+		vetorDeDados[0] = soma;
+		vetorDeDados[1] = contador;
+		
+		return vetorDeDados;
+	}
+	
+	public int retornaQuantidadeDePaginasTotal() {
+		int[] vetor = this.retornaQuantidadeETotal();
+		return vetor[0];
+	}
+	
+	public double retornaMediaDePaginas() {
+		int[] vetor = this.retornaQuantidadeETotal();
+		return (double) vetor[0] / (double)vetor[1];
 	}
 	
 }
