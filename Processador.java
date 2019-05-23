@@ -5,9 +5,10 @@ import java.util.*;
 public class Processador {
 	
 	private LeitorDeCsv leitorDoArqivo;
-	private List<PPG> listaDePPGs = new ArrayList<PPG>();
+	private Map<String, PPG> PPGs = new HashMap<>();
+	private Map<String, Instituicao> instituicoes = new HashMap<>();
 	private String[] cabecalho;	
-
+	
 	
 	public Processador(String caminho) throws IOException {
 		this.leitorDoArqivo = new LeitorDeCsv(caminho);
@@ -27,6 +28,7 @@ public class Processador {
 		return -1;
 	}
 	
+	
 	public void preencheListaDePPGs() throws IOException {
 		this.preencheCabecalho();
 		String[] linha = this.leitorDoArqivo.lerLinhaDoCsv();
@@ -39,7 +41,6 @@ public class Processador {
 			String sigla = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("SG_ENTIDADE_ENSINO"));
 			String nomeFaculdade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_ENTIDADE_ENSINO"));
 			int idSubTipo = Integer.parseInt(this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("ID_SUBTIPO_PRODUCAO")));
-			
 			String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
 			String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
 			String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
@@ -47,12 +48,28 @@ public class Processador {
 			String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
 			String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
 			
+			instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
+			this.instituicoes.put(nomeFaculdade + sigla, instituicaoAtual);
 			
 			if(idSubTipo == 8) {
 				String evento = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_EVENTO"));
 				producaoAtual = new Anais(titulo, natureza, idioma, cidade, paginaInicial, paginaFinal, evento);
-				instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
-				this.listaDePPGs.add(new PPG(codigoPPG, instituicaoAtual, producaoAtual));				
+				PPG ppgAtual = new PPG(codigoPPG);
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			PPG ppgAuxiliar = this.PPGs.get(codigoPPG);
+			String nomeSigla = nomeFaculdade + sigla;
+			if(!this.instituicoes.get(nomeSigla).verificaSePpgExisteNaLIsta(ppgAuxiliar)) {
+				this.instituicoes.get(nomeSigla).adicionaPPG(ppgAuxiliar);
 			}
 			
 			linha = this.leitorDoArqivo.lerLinhaDoCsv();
@@ -61,50 +78,29 @@ public class Processador {
 	
 	
 	public int retornaQuantidadeDePPGs() {
-		List<String> lista = new ArrayList<String>();
-		for(int i = 0; i < this.listaDePPGs.size(); i++) {
-			
-			if(!lista.contains(listaDePPGs.get(i).getCodigo())) {
-				
-				lista.add(listaDePPGs.get(i).getCodigo());
-			}
-		}
-		return lista.size();
+		return this.PPGs.size();
 	}
 	
 	
 	public int retornaQuantidadeDeInstituicoesPublicaramEmAnais() {
-		List<String> lista = new ArrayList<String>();
-		
-		for(int i = 0; i < this.listaDePPGs.size(); i++) {
-			Instituicao instituicao = listaDePPGs.get(i).getInstituicao();
-			String nomeSigla = instituicao.getNome() + "-" + instituicao.getSigla();
-			
-			if(!lista.contains(nomeSigla)) {
-				lista.add(nomeSigla);
-			}
-		}
-		
-		return lista.size();
+		return this.instituicoes.size();
 	}
-	
 	
 	public int retornaQuantidadeDeProducoes() {
-		return this.listaDePPGs.size();
+		int somaDeProducoes = 0;
+		for(PPG ppg : this.PPGs.values()) {
+			somaDeProducoes += ppg.retornaQuantidadeDeProducoesNaLista();
+		}
+		return somaDeProducoes;
 	}
-
 	
 	public int[] retornaQuantidadeETotal() {
 		int soma = 0;
 		int contador = 0;
 		
-		for(int i = 0; i < this.listaDePPGs.size(); i++) {
-			int valorDePaginas = this.listaDePPGs.get(i).getQuantidadeDePaginas();
-			if(valorDePaginas != -1) {
-				soma += valorDePaginas;
-				contador++;
-			}
-			
+		for(PPG ppg : this.PPGs.values()) {
+			soma += ppg.retornaQuantidadeDePaginasProdValidas()[0];
+			contador += ppg.retornaQuantidadeDePaginasProdValidas()[1];
 		}
 		int[] vetorDeDados = new int[2];
 		vetorDeDados[0] = soma;

@@ -2,13 +2,15 @@ import java.io.*;
 import java.util.*;
 
 public class T1_2019_1_Etapa01 {
+	
 	//br-colsucup-prod-detalhe-bibliografica-2017-2019-02-01-anais
 	public static void main(String[] args) throws IOException {
-		Locale.setDefault(new Locale("pt", "BR"));
-		Scanner entrada = new Scanner(System.in);
-		String caminhoDoArquivoCsv = entrada.nextLine() + entrada.nextLine();
 		
-		//String caminhoDoArquivoCsv = "/home/humberto/Downloads/br-colsucup-prod-detalhe-bibliografica-2017-2019-02-01-anais.csv";
+		Locale.setDefault(new Locale("pt", "BR"));
+		//Scanner entrada = new Scanner(System.in);
+		//String caminhoDoArquivoCsv = entrada.nextLine() + entrada.nextLine();
+		
+		String caminhoDoArquivoCsv = "/home/humberto/Downloads/br-colsucup-prod-detalhe-bibliografica-2017-2019-02-01-anais.csv";
 		try {
 			Processador processador = new Processador(caminhoDoArquivoCsv);
 			processador.preencheListaDePPGs();
@@ -23,7 +25,7 @@ public class T1_2019_1_Etapa01 {
 			System.out.println("Erro de I/O");
 		}
 		
-		entrada.close();
+		//entrada.close();
 	}
 	
 }
