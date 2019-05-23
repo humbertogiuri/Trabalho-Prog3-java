@@ -1,19 +1,13 @@
 
 public class Artjr extends Producao {
 	
-	private String editora;
-	private String dataDeLancamento;
+	private String dataDePublicacao;
 	private String ISSN;
 	
-	public Artjr(String titulo, String natureza, String idioma, String cidade, String paginaInicial,
-			String paginaFinal, String editora, String dataDeLancamento, String ISSN) {
-		
-		super(titulo, natureza, idioma, cidade, paginaInicial, paginaFinal);
-		this.editora = editora;
-		this.dataDeLancamento = dataDeLancamento;
-		this.ISSN = ISSN;
-		
-		
+	public Artjr(String cidade, String dataDePublicacao, String iSSN) {
+		super(cidade);
+		this.dataDePublicacao = dataDePublicacao;
+		ISSN = iSSN;
 	}
-
+		
 }

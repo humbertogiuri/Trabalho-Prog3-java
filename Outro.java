@@ -1,12 +1,15 @@
 
 public class Outro extends Producao {
+	
+	private String natureza;
+	private String idioma;
 	private String editora;
-
-	public Outro(String titulo, String natureza, String idioma, String cidade, String paginaInicial, String paginaFinal,
-			String editora) {
-		super(titulo, natureza, idioma, cidade, paginaInicial, paginaFinal);
+	
+	public Outro(String cidade, String natureza, String idioma, String editora) {
+		super(cidade);
+		this.natureza = natureza;
+		this.idioma = idioma;
 		this.editora = editora;
 	}
 	
-
 }

@@ -1,14 +1,18 @@
 
 public class Livro extends Producao {
-	
+	private String natureza;
+	private String idioma;
 	private String editora;
 	private String ISBN;
 	
-	public Livro(String titulo, String natureza, String idioma, String cidade, String paginaInicial,
-			String paginaFinal, String editora, String ISBN) {
-		super(titulo, natureza, idioma, cidade, paginaInicial, paginaFinal);
+	public Livro(String cidade, String natureza, String idioma, String editora, String iSBN) {
+		super(cidade);
+		this.natureza = natureza;
+		this.idioma = idioma;
 		this.editora = editora;
-		this.ISBN = ISBN;
+		ISBN = iSBN;
 	}
+	
+	
 
 }

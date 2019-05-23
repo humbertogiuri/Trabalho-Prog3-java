@@ -28,7 +28,6 @@ public class Processador {
 		return -1;
 	}
 	
-	
 	public void preencheListaDePPGs() throws IOException {
 		this.preencheCabecalho();
 		String[] linha = this.leitorDoArqivo.lerLinhaDoCsv();
@@ -41,20 +40,181 @@ public class Processador {
 			String sigla = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("SG_ENTIDADE_ENSINO"));
 			String nomeFaculdade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_ENTIDADE_ENSINO"));
 			int idSubTipo = Integer.parseInt(this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("ID_SUBTIPO_PRODUCAO")));
-			String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
-			String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
-			String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
 			String cidade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_CIDADE"));
-			String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
-			String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
 			
 			instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
 			this.instituicoes.put(nomeFaculdade + sigla, instituicaoAtual);
 			
 			if(idSubTipo == 8) {
+				
+				String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
+				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
 				String evento = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_EVENTO"));
-				producaoAtual = new Anais(titulo, natureza, idioma, cidade, paginaInicial, paginaFinal, evento);
+		
+				producaoAtual = new Anais(cidade, natureza, titulo, idioma, evento);
+				String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
+				String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
 				PPG ppgAtual = new PPG(codigoPPG);
+				
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			else if(idSubTipo == 9) {
+				
+				String dataDePublicacao = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DT_PUBLICACAO"));
+				String ISSN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISSN"));
+				producaoAtual = new Artjr(cidade, dataDePublicacao, ISSN);
+				String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
+				String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
+				PPG ppgAtual = new PPG(codigoPPG);
+				
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			else if(idSubTipo == 25) {
+				
+				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
+				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				String volume = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_VOLUME"));
+				String fasciculo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_FASCICULO"));
+				String serie = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_SERIE"));
+				String ISSN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISSN"));
+				
+				producaoAtual = new Artpe(cidade, natureza, idioma, editora, volume, fasciculo, serie, ISSN);
+				String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
+				String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
+				PPG ppgAtual = new PPG(codigoPPG);
+				
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			else if(idSubTipo == 26) {
+				
+				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
+				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				String ISBN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISBN"));
+				
+				
+				producaoAtual = new Livro(cidade, natureza, idioma, editora, ISBN);
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
+				PPG ppgAtual = new PPG(codigoPPG);
+				
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			else if(idSubTipo == 10) {
+				
+				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
+				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				
+				
+				producaoAtual = new Outro(cidade, natureza, idioma, editora);
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
+				PPG ppgAtual = new PPG(codigoPPG);
+				
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			else if(idSubTipo == 28) {
+				
+				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				String formacaoInstrumental = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				
+				
+				producaoAtual = new Partmu(cidade, natureza, editora, formacaoInstrumental);
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DR_FORMACAO_INSTRUMENTAL"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
+				PPG ppgAtual = new PPG(codigoPPG);
+				
+				if(this.PPGs.containsKey(codigoPPG)) {
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+				else {
+					this.PPGs.put(codigoPPG, ppgAtual);
+					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+				}
+			}
+			
+			else if(idSubTipo == 21) {
+				
+				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
+				String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
+				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
+				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				String idiomaTraducao = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA_TRADUCAO"));
+				
+				
+				producaoAtual = new Tradu(cidade, natureza, titulo, idioma, editora, idiomaTraducao);
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DR_FORMACAO_INSTRUMENTAL"));
+				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
+				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
+				
+				PPG ppgAtual = new PPG(codigoPPG);
+				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
 					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);

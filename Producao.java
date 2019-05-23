@@ -1,25 +1,19 @@
 public abstract class Producao {
 	
-	private String titulo;
-	private String natureza;
-	private String idioma;
 	private String cidade;
-	private String paginaInicial;
-	private String paginaFinal;
 	private int quantidadeDePaginas;
 	
-	public Producao(String titulo, String natureza, String idioma, String cidade, String paginaInicial, String paginaFinal) {
-		this.titulo = titulo;
-		this.natureza = natureza;
-		this.idioma = idioma;
+	public Producao(String cidade) {
 		this.cidade = cidade;
-		this.paginaInicial = paginaInicial;
-		this.paginaFinal = paginaFinal;
 	}
 	
-	private boolean validaPaginaInicial() {
+	public void setQuantidadeDePaginas(int quantidade) {
+		this.quantidadeDePaginas = quantidade;
+	}
+	
+	private boolean validaPagina(String paginaAvaliada) {
 		try {
-			int pagina = Integer.parseInt(this.paginaInicial);
+			int pagina = Integer.parseInt(paginaAvaliada);
 			if(pagina < 0) {
 				return false;
 			}
@@ -30,46 +24,42 @@ public abstract class Producao {
 		return true;
 	}
 	
-	private boolean validaPaginaFinal() {
-		try {
-			int pagina = Integer.parseInt(this.paginaFinal);
-			if(pagina < 0) {
-				return false;
-			}
+	public int calculaQuantidadeDePaginas(String pagina) {
+		if(this.validaPagina(pagina) == true ) {
+			int quantidade = Integer.parseInt(pagina);
+			return quantidade;
 		}
-		catch(NumberFormatException e) {
-			return false;
+		
+		else {
+			return -1; //valor de erro
 		}
-		return true;
 	}
 	
-	private void calculaQuantidadeDePaginas() {
-		if(this.validaPaginaInicial() == true && this.validaPaginaFinal() == true) {
-			int paginaInicial = Integer.parseInt(this.paginaInicial);
-			int paginaFinal = Integer.parseInt(this.paginaFinal);
+	public int calculaQuantidadeDePaginas(String paginaInicial, String paginaFinal) {
+		if(this.validaPagina(paginaInicial) == true && this.validaPagina(paginaFinal) == true) {
+			int inicial = Integer.parseInt(paginaInicial);
+			int fim = Integer.parseInt(paginaFinal);
 			
-			int soma = paginaFinal - paginaInicial + 1;
+			int soma = fim - inicial + 1;
 			
 			if(soma > 2000) {
-				this.quantidadeDePaginas = -1; //valor de erro
+				return -1; //valor de erro
 			}
 			
-			else if(paginaFinal < paginaInicial) {
-				this.quantidadeDePaginas = -1; //valor de erro
+			else if(fim < inicial) {
+				return -1; //valor de erro
 			}
 			else {
-				this.quantidadeDePaginas = soma;
+				return soma;
 			}
 		}
 		
 		else {
-			this.quantidadeDePaginas = -1; //valor de erro
+			return -1; //valor de erro
 		}
 	}
 	
 	public int getQuantidadeDePaginas() {
-		this.calculaQuantidadeDePaginas();
 		return this.quantidadeDePaginas;
 	}
-	
 }
