@@ -15,6 +15,10 @@ public class LeitorDeCsv {
 		this.leitorDeCsv = new BufferedReader(new FileReader(caminho)); 
 	}
 	
+	public void lerNovoEnderecoDeEntrada(String enderecoNovo) throws IOException{
+		this.leitorDeCsv = new BufferedReader(new FileReader(enderecoNovo));
+	}
+	
 	private void formatarLinha() {
         for(int i = 0; i < linhaAtualLida.length; i++) {
             linhaAtualLida[i] = linhaAtualLida[i].trim();

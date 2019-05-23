@@ -28,6 +28,10 @@ public class Processador {
 		return -1;
 	}
 	
+	public void mudaEnderecoDeEntrada(String novoEndereco) throws IOException {
+		this.leitorDoArqivo.lerNovoEnderecoDeEntrada(novoEndereco);
+	}
+	
 	public void preencheListaDePPGs() throws IOException {
 		this.preencheCabecalho();
 		String[] linha = this.leitorDoArqivo.lerLinhaDoCsv();
