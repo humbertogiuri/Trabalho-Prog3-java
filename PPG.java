@@ -1,13 +1,15 @@
 import java.util.*;
-public class PPG {
+public class PPG implements Comparable<PPG> {
 	
 	private String codigo;
+	private String nome;
 	private List<Producao> producoes = new ArrayList<Producao>();
 	private List<Instituicao> instituicoes = new ArrayList<Instituicao>();
 	
 	
-	public PPG(String codigo) {
+	public PPG(String codigo, String nome) {
 		this.codigo = codigo;
+		this.nome = nome;
 	}
 	
 	public void adicionaInstituicaNaLista(Instituicao instituicao) {
@@ -73,6 +75,30 @@ public class PPG {
 		quantidadeEValidas[0] = soma;
 		quantidadeEValidas[1] = producoesValidas;
 		return quantidadeEValidas;
+	}
+	
+	public int retornaTamanhoDaListaDeInstituicoes() {
+		return this.instituicoes.size();
+	}
+
+	@Override
+	public int compareTo(PPG o) {
+		return this.codigo.compareTo(o.codigo);
+	}
+
+	public void ordernarInstituicoes() {
+		Collections.sort(this.instituicoes);
+		
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+	
+	public void imprimirInstituicoes() {
+		for(int i = 0; i < this.instituicoes.size(); i++) {
+			instituicoes.get(i).imprimirNomeSiglaFormatados();
+		}
 	}
 
 }

@@ -62,7 +62,7 @@ public class Processador {
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -85,7 +85,7 @@ public class Processador {
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -114,7 +114,7 @@ public class Processador {
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -140,7 +140,7 @@ public class Processador {
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -165,7 +165,7 @@ public class Processador {
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -186,11 +186,11 @@ public class Processador {
 				
 				
 				producaoAtual = new Partmu(cidade, natureza, editora, formacaoInstrumental);
-				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DR_FORMACAO_INSTRUMENTAL"));
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS"));
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -208,16 +208,16 @@ public class Processador {
 				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
 				String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
 				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
-				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA_TRADUCAO"));
 				String idiomaTraducao = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA_TRADUCAO"));
 				
 				
 				producaoAtual = new Tradu(cidade, natureza, titulo, idioma, editora, idiomaTraducao);
-				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DR_FORMACAO_INSTRUMENTAL"));
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS"));
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				PPG ppgAtual = new PPG(codigoPPG);
+				PPG ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
 				if(this.PPGs.containsKey(codigoPPG)) {
 					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
@@ -283,5 +283,31 @@ public class Processador {
 		return (double) vetor[0] / (double)vetor[1];
 	}
 	
+	public boolean verificaPPGsEmRede(PPG ppg) {
+		if(ppg.retornaTamanhoDaListaDeInstituicoes() > 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void executaComandoRede() {
+		
+		List<PPG> ppgsEmRede = new ArrayList<PPG>();
+		System.out.println("Programas em rede:");
+		
+		for(PPG ppg : PPGs.values()) {
+			if(this.verificaPPGsEmRede(ppg)) {
+				ppg.ordernarInstituicoes();
+				ppgsEmRede.add(ppg);
+			}
+		}
+		Collections.sort(ppgsEmRede);
+		
+		for(int i = 0; i < ppgsEmRede.size(); i++) {
+			System.out.println(ppgsEmRede.get(i).getCodigo() + ":" + ppgsEmRede.get(i).getNome());
+			ppgsEmRede.get(i).imprimirInstituicoes();
+		}
+		
+	}
 }
 	

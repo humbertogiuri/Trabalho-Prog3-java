@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Instituicao {
+public class Instituicao implements Comparable<Instituicao>{
 	private String nome;
 	private String sigla;
 	private List<PPG> PPGs = new ArrayList<PPG>();
@@ -31,5 +31,19 @@ public class Instituicao {
 	
 	public void adicionaPPG(PPG ppg) {
 		this.PPGs.add(ppg);
+	}
+
+	@Override
+	public int compareTo(Instituicao o) {
+		int comp = this.sigla.compareTo(o.sigla);
+		if(comp != 0) {
+			return comp;
+		}
+		
+		return this.nome.compareTo(o.nome);
+	}
+	
+	public void imprimirNomeSiglaFormatados() {
+		System.out.println("\t- " + this.sigla + "(" + this.nome + ")");
 	}
 }
