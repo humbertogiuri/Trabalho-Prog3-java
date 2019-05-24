@@ -15,7 +15,6 @@ public class T1_2019_1_Etapa01 {
 			Processador processador = new Processador(caminhoDoArquivoCsv);
 			for(int i = 0; i < 7; i++) {
 				processador.preencheListaDePPGs();
-				System.out.println("Sai");
 				if(i < 6) {
 					caminhoDoArquivoCsv = caminhoFixo + entrada.nextLine();
 					processador.mudaEnderecoDeEntrada(caminhoDoArquivoCsv);

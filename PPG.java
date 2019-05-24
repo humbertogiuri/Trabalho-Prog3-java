@@ -43,21 +43,6 @@ public class PPG implements Comparable<PPG> {
 		return codigo.hashCode();
 	}
 	
-	@Override
-	public int hashCode() {
-		return PPG.hashCode(this.codigo);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		PPG novo = (PPG) obj;
-		if(this.codigo.equals(novo.codigo)) {
-			return true;
-		}
-		return false;
-	}
-	
 	public String getCodigo() {
 		return this.codigo;
 	}
@@ -99,6 +84,13 @@ public class PPG implements Comparable<PPG> {
 		for(int i = 0; i < this.instituicoes.size(); i++) {
 			instituicoes.get(i).imprimirNomeSiglaFormatados();
 		}
+	}
+	
+	public boolean verificaPPGsEmRede() {
+		if(this.instituicoes.size() > 1) {
+			return true;
+		}
+		return false;
 	}
 
 }
