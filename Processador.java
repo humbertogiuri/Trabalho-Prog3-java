@@ -137,7 +137,7 @@ public class Processador {
 				
 				
 				producaoAtual = new Livro(cidade, natureza, idioma, editora, ISBN);
-				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS"));
+				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS_CONTRIBUICAO"));
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
@@ -298,10 +298,41 @@ public class Processador {
 		Collections.sort(ppgsEmRede);
 		
 		for(int i = 0; i < ppgsEmRede.size(); i++) {
-			System.out.println(ppgsEmRede.get(i).getCodigo() + ":" + ppgsEmRede.get(i).getNome());
+			System.out.println(ppgsEmRede.get(i).getCodigo() + ": " + ppgsEmRede.get(i).getNome());
 			ppgsEmRede.get(i).imprimirInstituicoes();
 		}
 		
 	}
+	
+	public void exexutaComandoPpg(String ppg) {
+		
+		PPG ppgRequerida = PPGs.get(ppg);
+		if(ppgRequerida == null) {
+			System.out.println("PPG nao encontrado.");
+		}
+		else {
+			System.out.printf("Programa: %s\n", ppgRequerida.getNome());
+			System.out.println("Instituicoes:");
+			ppgRequerida.ordernarInstituicoes();
+			ppgRequerida.imprimirInstituicoes();
+			System.out.printf("\n");
+			
+			int vetorDosTiposDeProducoes[] = ppgRequerida.retornaQuantidadeDasProducoes();
+			System.out.println("Quantidade de producoes por tipo:");
+			System.out.println("\t- Artigos em anais de eventos: " + vetorDosTiposDeProducoes[0]);
+			System.out.println("\t- Artigos em jornais e revistas: " + vetorDosTiposDeProducoes[1]);
+			System.out.println("\t- Artigos em periodicos cientificos: " + vetorDosTiposDeProducoes[2]);
+			System.out.println("\t- Livros: " + vetorDosTiposDeProducoes[3]);
+			System.out.println("\t- Partituras musicais: " + vetorDosTiposDeProducoes[4]);
+			System.out.println("\t- Traducoes: " + vetorDosTiposDeProducoes[5]);
+			System.out.println("\t- Outros: " + vetorDosTiposDeProducoes[6]);
+			System.out.printf("\n");
+			
+			int paginas[] = ppgRequerida.retornaQuantidadeDePaginasProdValidas();
+			
+			System.out.print("Total de paginas produzidas pelo PPG: " + paginas[0]);
+		}
+	}
+	
 }
 	

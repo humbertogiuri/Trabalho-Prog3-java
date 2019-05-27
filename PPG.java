@@ -92,5 +92,39 @@ public class PPG implements Comparable<PPG> {
 		}
 		return false;
 	}
-
+	
+	public int[] retornaQuantidadeDasProducoes() {
+		int[] tiposDeProducoes = new int[7];
+		for(Producao producao : this.producoes) {
+			if(producao instanceof Anais) {
+				tiposDeProducoes[0]++;
+			}
+			
+			else if(producao instanceof Artjr) {
+				tiposDeProducoes[1]++;
+			}
+			
+			else if(producao instanceof Artpe) {
+				tiposDeProducoes[2]++;
+			}
+			
+			else if(producao instanceof Livro) {
+				tiposDeProducoes[3]++;
+			}
+			
+			else if(producao instanceof Partmu) {
+				tiposDeProducoes[4]++;
+			}
+			
+			else if(producao instanceof Tradu) {
+				tiposDeProducoes[5]++;
+			}
+			
+			else if(producao instanceof Outro) {
+				tiposDeProducoes[6]++;
+			}
+		}
+		
+		return tiposDeProducoes;
+	}
 }

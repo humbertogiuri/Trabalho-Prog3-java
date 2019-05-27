@@ -44,6 +44,6 @@ public class Instituicao implements Comparable<Instituicao>{
 	}
 	
 	public void imprimirNomeSiglaFormatados() {
-		System.out.println("\t- " + this.sigla + "(" + this.nome + ")");
+		System.out.println("\t- " + this.sigla + " (" + this.nome + ")");
 	}
 }
