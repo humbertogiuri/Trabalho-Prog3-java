@@ -311,6 +311,7 @@ public class Processador {
 			System.out.println("PPG nao encontrado.");
 		}
 		else {
+			//alterar apos conclusao, colocar dentro de ppg
 			System.out.printf("Programa: %s\n", ppgRequerida.getNome());
 			System.out.println("Instituicoes:");
 			ppgRequerida.ordernarInstituicoes();
@@ -331,6 +332,28 @@ public class Processador {
 			int paginas[] = ppgRequerida.retornaQuantidadeDePaginasProdValidas();
 			
 			System.out.print("Total de paginas produzidas pelo PPG: " + paginas[0]);
+		}
+	}
+
+
+	public void executaComandoIes(String ies) {
+		List<Instituicao> instituicoesRequeridas = new ArrayList<Instituicao>();
+		
+		for(Instituicao instituicao : this.instituicoes.values()) {
+			if(instituicao.getSigla().equals(ies)) {
+				instituicoesRequeridas.add(instituicao);
+			}
+		}
+		
+		Collections.sort(instituicoesRequeridas);
+		
+		for(Instituicao instituicao : instituicoesRequeridas) {
+			instituicao.ordenarPpgs();
+		}
+		
+		for(Instituicao instituicao : instituicoesRequeridas) {
+			System.out.println(instituicao.getNome() + " (" + instituicao.getSigla() + "):");
+			instituicao.imprimirPpgsFormatadas();
 		}
 	}
 	

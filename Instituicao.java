@@ -46,4 +46,16 @@ public class Instituicao implements Comparable<Instituicao>{
 	public void imprimirNomeSiglaFormatados() {
 		System.out.println("\t- " + this.sigla + " (" + this.nome + ")");
 	}
+
+	public void ordenarPpgs() {
+		Collections.sort(this.PPGs);
+		
+	}
+	
+	public void imprimirPpgsFormatadas() {
+		for(PPG ppg : this.PPGs) {
+			System.out.println("\t- " + ppg.getNome() + ": " + ppg.retornaQuantidadeDePaginasProdValidas()[1] 
+					+ " producoes");
+		}
+	}
 }
