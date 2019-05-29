@@ -37,12 +37,7 @@ public class PPG implements Comparable<PPG> {
 	public int retornaQuantidadeDeProducoesNaLista() {
 		return this.producoes.size();
 	}
-	
-	
-	public static int hashCode(String codigo) {
-		return codigo.hashCode();
-	}
-	
+
 	public String getCodigo() {
 		return this.codigo;
 	}
@@ -68,7 +63,12 @@ public class PPG implements Comparable<PPG> {
 
 	@Override
 	public int compareTo(PPG o) {
-		return this.codigo.compareTo(o.codigo);
+		int comp = this.codigo.compareTo(o.codigo);
+		if(comp != 0) {
+			return comp;
+		}
+		
+		return this.nome.compareTo(o.nome);
 	}
 
 	public void ordernarInstituicoes() {
@@ -126,5 +126,29 @@ public class PPG implements Comparable<PPG> {
 		}
 		
 		return tiposDeProducoes;
+	}
+
+	public void imprimirDadosProducoesFormstadosParaComandoPpg() {
+		System.out.printf("Programa: %s\n", this.getNome());
+		System.out.println("Instituicoes:");
+		this.ordernarInstituicoes();
+		this.imprimirInstituicoes();
+		System.out.printf("\n");
+		
+		int vetorDosTiposDeProducoes[] = this.retornaQuantidadeDasProducoes();
+		System.out.println("Quantidade de producoes por tipo:");
+		System.out.println("\t- Artigos em anais de eventos: " + vetorDosTiposDeProducoes[0]);
+		System.out.println("\t- Artigos em jornais e revistas: " + vetorDosTiposDeProducoes[1]);
+		System.out.println("\t- Artigos em periodicos cientificos: " + vetorDosTiposDeProducoes[2]);
+		System.out.println("\t- Livros: " + vetorDosTiposDeProducoes[3]);
+		System.out.println("\t- Partituras musicais: " + vetorDosTiposDeProducoes[4]);
+		System.out.println("\t- Traducoes: " + vetorDosTiposDeProducoes[5]);
+		System.out.println("\t- Outros: " + vetorDosTiposDeProducoes[6]);
+		System.out.printf("\n");
+		
+		int paginas[] = this.retornaQuantidadeDePaginasProdValidas();
+		
+		System.out.print("Total de paginas produzidas pelo PPG: " + paginas[0]);
+		
 	}
 }

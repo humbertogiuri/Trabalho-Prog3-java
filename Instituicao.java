@@ -30,7 +30,10 @@ public class Instituicao implements Comparable<Instituicao>{
 	}
 	
 	public void adicionaPPG(PPG ppg) {
-		this.PPGs.add(ppg);
+		if(!this.verificaSePpgExisteNaLIsta(ppg)) {
+			this.PPGs.add(ppg);
+		}
+		
 	}
 
 	@Override
@@ -54,7 +57,7 @@ public class Instituicao implements Comparable<Instituicao>{
 	
 	public void imprimirPpgsFormatadas() {
 		for(PPG ppg : this.PPGs) {
-			System.out.println("\t- " + ppg.getNome() + ": " + ppg.retornaQuantidadeDePaginasProdValidas()[1] 
+			System.out.println("\t- " + ppg.getNome() + ": " + ppg.retornaQuantidadeDeProducoesNaLista()
 					+ " producoes");
 		}
 	}

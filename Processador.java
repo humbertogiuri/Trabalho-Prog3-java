@@ -41,14 +41,18 @@ public class Processador {
 			Instituicao instituicaoAtual = null;
 			PPG ppgAtual = null;
 			
+			//Faz as leituras dos dados basicos
 			String codigoPPG = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("CD_PROGRAMA_IES"));
 			String sigla = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("SG_ENTIDADE_ENSINO"));
 			String nomeFaculdade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_ENTIDADE_ENSINO"));
 			int idSubTipo = Integer.parseInt(this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("ID_SUBTIPO_PRODUCAO")));
 			String cidade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_CIDADE"));
 			
+			//Coloca instituicao na hash
 			instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
-			this.instituicoes.put(nomeFaculdade + sigla, instituicaoAtual);
+			if(!this.instituicoes.containsKey(nomeFaculdade + sigla)) {
+				this.instituicoes.put(nomeFaculdade + sigla, instituicaoAtual);
+			}
 			
 			if(idSubTipo == 8) {
 				
@@ -65,15 +69,6 @@ public class Processador {
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
 			}
 			
 			else if(idSubTipo == 9) {
@@ -87,16 +82,7 @@ public class Processador {
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
-				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
+			
 			}
 			
 			else if(idSubTipo == 25) {
@@ -117,15 +103,6 @@ public class Processador {
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
 			}
 			
 			else if(idSubTipo == 26) {
@@ -143,15 +120,6 @@ public class Processador {
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
 			}
 			
 			else if(idSubTipo == 10) {
@@ -167,16 +135,6 @@ public class Processador {
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
-				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
 			}
 			
 			else if(idSubTipo == 28) {
@@ -193,17 +151,8 @@ public class Processador {
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
 			}
-			
+				
 			else if(idSubTipo == 21) {
 				
 				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
@@ -220,21 +169,17 @@ public class Processador {
 				
 				ppgAtual = new PPG(codigoPPG, this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_PROGRAMA_IES")));
 				
-				if(this.PPGs.containsKey(codigoPPG)) {
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
-				else {
-					this.PPGs.put(codigoPPG, ppgAtual);
-					this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
-					this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
-				}
 			}
 			
-			String nomeSigla = nomeFaculdade + sigla;
-			if(!this.instituicoes.get(nomeSigla).verificaSePpgExisteNaLIsta(ppgAtual)) {
-				this.instituicoes.get(nomeSigla).adicionaPPG(ppgAtual);
+			if(!this.PPGs.containsKey(codigoPPG)) {
+			this.PPGs.put(codigoPPG, ppgAtual);
 			}
+
+			this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
+			this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
+		
+			String nomeSigla = nomeFaculdade + sigla;
+			this.instituicoes.get(nomeSigla).adicionaPPG(ppgAtual);
 			
 			linha = this.leitorDoArqivo.lerLinhaDoCsv();
 		}
@@ -311,27 +256,7 @@ public class Processador {
 			System.out.println("PPG nao encontrado.");
 		}
 		else {
-			//alterar apos conclusao, colocar dentro de ppg
-			System.out.printf("Programa: %s\n", ppgRequerida.getNome());
-			System.out.println("Instituicoes:");
-			ppgRequerida.ordernarInstituicoes();
-			ppgRequerida.imprimirInstituicoes();
-			System.out.printf("\n");
-			
-			int vetorDosTiposDeProducoes[] = ppgRequerida.retornaQuantidadeDasProducoes();
-			System.out.println("Quantidade de producoes por tipo:");
-			System.out.println("\t- Artigos em anais de eventos: " + vetorDosTiposDeProducoes[0]);
-			System.out.println("\t- Artigos em jornais e revistas: " + vetorDosTiposDeProducoes[1]);
-			System.out.println("\t- Artigos em periodicos cientificos: " + vetorDosTiposDeProducoes[2]);
-			System.out.println("\t- Livros: " + vetorDosTiposDeProducoes[3]);
-			System.out.println("\t- Partituras musicais: " + vetorDosTiposDeProducoes[4]);
-			System.out.println("\t- Traducoes: " + vetorDosTiposDeProducoes[5]);
-			System.out.println("\t- Outros: " + vetorDosTiposDeProducoes[6]);
-			System.out.printf("\n");
-			
-			int paginas[] = ppgRequerida.retornaQuantidadeDePaginasProdValidas();
-			
-			System.out.print("Total de paginas produzidas pelo PPG: " + paginas[0]);
+			ppgRequerida.imprimirDadosProducoesFormstadosParaComandoPpg();
 		}
 	}
 
