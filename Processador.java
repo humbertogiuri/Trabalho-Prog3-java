@@ -174,8 +174,11 @@ public class Processador {
 			}
 			
 			if(!this.PPGs.containsKey(codigoPPG)) {
-			this.PPGs.put(codigoPPG, ppgAtual);
+				this.PPGs.put(codigoPPG, ppgAtual);
+			} else {
+				ppgAtual = this.PPGs.get(codigoPPG);
 			}
+				
 
 			this.PPGs.get(codigoPPG).adicionaInstituicaNaLista(instituicaoAtual);
 			this.PPGs.get(codigoPPG).adicionaProducaoNaLista(producaoAtual);
