@@ -51,7 +51,7 @@ public class Instituicao implements Comparable<Instituicao>{
 	}
 
 	public void ordenarPpgs() {
-		Collections.sort(this.PPGs);
+		Collections.sort(this.PPGs, new ComparadorPpgPorNome());
 		
 	}
 	
