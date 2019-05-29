@@ -49,9 +49,11 @@ public class Processador {
 			String cidade = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_CIDADE"));
 			
 			//Coloca instituicao na hash
-			instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
 			if(!this.instituicoes.containsKey(nomeFaculdade + sigla)) {
+				instituicaoAtual = new Instituicao(nomeFaculdade, sigla);instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
 				this.instituicoes.put(nomeFaculdade + sigla, instituicaoAtual);
+			} else {
+				instituicaoAtual = this.instituicoes.get(nomeFaculdade + sigla);
 			}
 			
 			if(idSubTipo == 8) {
