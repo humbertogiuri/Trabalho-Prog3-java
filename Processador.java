@@ -50,7 +50,7 @@ public class Processador {
 			
 			//Coloca instituicao na hash
 			if(!this.instituicoes.containsKey(nomeFaculdade + sigla)) {
-				instituicaoAtual = new Instituicao(nomeFaculdade, sigla);instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
+				instituicaoAtual = new Instituicao(nomeFaculdade, sigla);
 				this.instituicoes.put(nomeFaculdade + sigla, instituicaoAtual);
 			} else {
 				instituicaoAtual = this.instituicoes.get(nomeFaculdade + sigla);
