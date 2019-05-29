@@ -1,6 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.*;
+
+import com.sun.javadoc.ThrowsTag;
 
 public class Processador {
 	
@@ -268,6 +271,10 @@ public class Processador {
 			if(instituicao.getSigla().equals(ies)) {
 				instituicoesRequeridas.add(instituicao);
 			}
+		}
+		
+		if(instituicoesRequeridas.size() == 0) {
+			throw new InvalidParameterException("IES nao encontrada.");
 		}
 		
 		Collections.sort(instituicoesRequeridas);

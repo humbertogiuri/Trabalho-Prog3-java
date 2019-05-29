@@ -1,4 +1,5 @@
 import java.io.*;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class T1_2019_1_Etapa04 {
@@ -33,10 +34,18 @@ public class T1_2019_1_Etapa04 {
 			else if(comando.equals("ies")) {
 				processador.executaComandoIes(entrada.next());
 			}
+			
+			else {
+				System.out.println("Comando desconhecido.");
+			}
 		}
 
 		catch (IOException e) {
 			System.out.println("Erro de I/O");
+		}
+		
+		catch (InvalidParameterException e) {
+			System.out.println(e.getMessage());
 		}
 
 		entrada.close();
