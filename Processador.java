@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.*;
 
-import com.sun.javadoc.ThrowsTag;
-
 public class Processador {
 	
 	private LeitorDeCsv leitorDoArqivo;
