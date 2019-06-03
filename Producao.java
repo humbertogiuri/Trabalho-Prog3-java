@@ -11,6 +11,10 @@ public abstract class Producao {
 		this.quantidadeDePaginas = quantidade;
 	}
 	
+	public String getCidade() {
+		return this.cidade;
+	}
+	
 	private boolean validaPagina(String paginaAvaliada) {
 		try {
 			int pagina = Integer.parseInt(paginaAvaliada);
@@ -62,4 +66,5 @@ public abstract class Producao {
 	public int getQuantidadeDePaginas() {
 		return this.quantidadeDePaginas;
 	}
+	
 }

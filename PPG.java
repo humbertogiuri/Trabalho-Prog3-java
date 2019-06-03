@@ -22,6 +22,7 @@ public class PPG implements Comparable<PPG> {
 		this.producoes.add(producao);
 	}
 	
+	
 	private boolean verificaSeInstituicaoExisteNaLista(Instituicao instiuicao) {
 		String instituicaoNomeSigla = instiuicao.getNome() + instiuicao.getSigla();
 		for(int i = 0; i < this.instituicoes.size(); i++) {
@@ -150,5 +151,195 @@ public class PPG implements Comparable<PPG> {
 		
 		System.out.print("Total de paginas produzidas pelo PPG: " + paginas[0]);
 		
+	}
+
+	public List<Anais> retornaListaDeAnais() {
+		List<Anais> listaDeAnais = new ArrayList<Anais>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Anais) {
+				if(listaDeAnais.size() == 0) {
+					listaDeAnais.add((Anais) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDeAnais.size(); j++) {
+						
+						Anais anais = (Anais)this.producoes.get(i);
+						
+						if(anais.compareTo(listaDeAnais.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDeAnais.add((Anais) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDeAnais;
+	}
+
+	public List<Artjr> retornaListaDeArtjr() {
+		List<Artjr> listaDeArtjr = new ArrayList<Artjr>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Artjr) {
+				if(listaDeArtjr.size() == 0) {
+					listaDeArtjr.add((Artjr) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDeArtjr.size(); j++) {
+						
+						Artjr Artjr = (Artjr)this.producoes.get(i);
+						
+						if(Artjr.compareTo(listaDeArtjr.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDeArtjr.add((Artjr) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDeArtjr;
+	}
+
+	public List<Artpe> retornaListaDeArtpe() {
+		
+		List<Artpe> listaDeArtpe = new ArrayList<Artpe>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Artpe) {
+				if(listaDeArtpe.size() == 0) {
+					listaDeArtpe.add((Artpe) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDeArtpe.size(); j++) {
+						
+						Artpe Artpe = (Artpe)this.producoes.get(i);
+						
+						if(Artpe.compareTo(listaDeArtpe.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDeArtpe.add((Artpe) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDeArtpe;	
+	}
+
+	public List<Livro> retornaListaDeLivro() {
+		List<Livro> listaDeLivro = new ArrayList<Livro>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Livro) {
+				if(listaDeLivro.size() == 0) {
+					listaDeLivro.add((Livro) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDeLivro.size(); j++) {
+						
+						Livro livro = (Livro)this.producoes.get(i);
+						
+						if(livro.compareTo(listaDeLivro.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDeLivro.add((Livro) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDeLivro;
+	}
+
+	public List<Partmu> retornaListaDePartmu() {
+		List<Partmu> listaDePartmu = new ArrayList<Partmu>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Partmu) {
+				if(listaDePartmu.size() == 0) {
+					listaDePartmu.add((Partmu) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDePartmu.size(); j++) {
+						
+						Partmu partmu = (Partmu)this.producoes.get(i);
+						
+						if(partmu.compareTo(listaDePartmu.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDePartmu.add((Partmu) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDePartmu;
+	}
+
+	public List<Tradu> retornaListaDeTradu() {
+		List<Tradu> listaDeTradu = new ArrayList<Tradu>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Tradu) {
+				if(listaDeTradu.size() == 0) {
+					listaDeTradu.add((Tradu) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDeTradu.size(); j++) {
+						
+						Tradu tradu = (Tradu)this.producoes.get(i);
+						
+						if(tradu.compareTo(listaDeTradu.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDeTradu.add((Tradu) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDeTradu;
+	}
+
+	public List<Outro> retornaListaDeOutro() {
+		List<Outro> listaDeOutro = new ArrayList<Outro>();
+		for(int i = 0; i < this.producoes.size(); i++) {
+
+			if(this.producoes.get(i) instanceof Outro) {
+				if(listaDeOutro.size() == 0) {
+					listaDeOutro.add((Outro) this.producoes.get(i));
+				}
+				else {
+					int contador = 0;
+					for(int j = 0; j < listaDeOutro.size(); j++) {
+						
+						Outro outro = (Outro)this.producoes.get(i);
+						
+						if(outro.compareTo(listaDeOutro.get(j)) == 0) {
+							contador++;
+						}
+					}
+					if(contador == 0) {
+						listaDeOutro.add((Outro) this.producoes.get(i));
+					}
+				}
+			}
+		}
+		return listaDeOutro;
 	}
 }

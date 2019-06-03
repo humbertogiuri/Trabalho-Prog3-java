@@ -1,4 +1,4 @@
-public class Anais extends Producao{
+public class Anais extends Producao implements Comparable<Anais>{
 	
 	private String natureza;
 	private String titulo;
@@ -12,7 +12,59 @@ public class Anais extends Producao{
 		this.evento = evento;
 	}
 	
+	public void imprimirAnaisFormatadaParte5() {
+		if(this.getQuantidadeDePaginas() != -1) {
+			System.out.println(this.natureza + ";" + this.titulo
+					+ ";" + this.idioma + ";" + this.evento
+					+ ";" + this.getCidade() + ";" + this.getQuantidadeDePaginas());
+		}
+		
+		else {
+			System.out.println(this.natureza + ";" + this.titulo
+					+ ";" + this.idioma + ";" + this.evento
+					+ ";" + this.getCidade() + ";");
+		}
+		
+	}
 	
+	public String getTitulo() {
+		return this.titulo;
+	}
 	
+	@Override
+	public int compareTo(Anais o) {
+		int comp = this.natureza.compareTo(o.natureza);
+		if(comp != 0) {
+			return comp;
+		}
+		
+		else {
+			comp = this.titulo.compareTo(o.titulo);
+				if(comp != 0) {
+					return comp;
+				}
+				
+				else {
+					comp = this.idioma.compareTo(o.idioma); 
+					if(comp != 0) {
+						return comp;
+					}
+					else {
+						comp = this.evento.compareTo(o.evento); {
+						if(comp != 0) {
+							return comp;
+						}
+						else {
+							comp = this.getCidade().compareTo(o.getCidade());
+							if(comp != 0) {
+								return comp;
+							}
+						}
+					}
+				}
+			}
+		}
+		return this.getQuantidadeDePaginas() - o.getQuantidadeDePaginas();
+	}
 	
 }

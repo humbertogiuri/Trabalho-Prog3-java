@@ -71,14 +71,15 @@ public class Processador {
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
 				
-				
 			}
 			
 			else if(idSubTipo == 9) {
 				
+				String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
+				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
 				String dataDePublicacao = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DT_PUBLICACAO"));
 				String ISSN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISSN"));
-				producaoAtual = new Artjr(cidade, dataDePublicacao, ISSN);
+				producaoAtual = new Artjr(titulo, idioma, cidade, dataDePublicacao, ISSN);
 				String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
 				String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
@@ -96,13 +97,12 @@ public class Processador {
 				String fasciculo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_FASCICULO"));
 				String serie = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_SERIE"));
 				String ISSN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISSN"));
-				
+					
 				producaoAtual = new Artpe(cidade, natureza, idioma, editora, volume, fasciculo, serie, ISSN);
 				String paginaInicial = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_INICIAL"));
 				String paginaFinal = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINA_FINAL"));
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(paginaInicial, paginaFinal);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
-				
 				
 			}
 			
@@ -111,10 +111,11 @@ public class Processador {
 				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
 				String idioma = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_IDIOMA"));
 				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
-				String ISBN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISBN"));
+				String ISBN = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_ISBN")); 
+				String titulo = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_TITULO"));
+				String cidadeLivro = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_CIDADE_PAIS"));
 				
-				
-				producaoAtual = new Livro(cidade, natureza, idioma, editora, ISBN);
+				producaoAtual = new Livro(cidadeLivro, natureza, idioma, editora, ISBN, titulo);
 				String pagina = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NR_PAGINAS_CONTRIBUICAO"));
 				int quantidadeDePaginas = producaoAtual.calculaQuantidadeDePaginas(pagina);
 				producaoAtual.setQuantidadeDePaginas(quantidadeDePaginas);
@@ -140,7 +141,7 @@ public class Processador {
 				
 				String natureza = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_NATUREZA"));
 				String editora = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
-				String formacaoInstrumental = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("NM_EDITORA"));
+				String formacaoInstrumental = this.leitorDoArqivo.getColuna(this.retornaIndiceDaStringNoCabecalho("DS_FORMACAO_INSTRUMENTAL"));
 				
 				
 				producaoAtual = new Partmu(cidade, natureza, editora, formacaoInstrumental);
@@ -186,16 +187,6 @@ public class Processador {
 		}
 	}
 	
-	
-	public int retornaQuantidadeDePPGs() {
-		return this.PPGs.size();
-	}
-	
-	
-	public int retornaQuantidadeDeInstituicoesPublicaramEmAnais() {
-		return this.instituicoes.size();
-	}
-	
 	public int retornaQuantidadeDeProducoes() {
 		int somaDeProducoes = 0;
 		for(PPG ppg : this.PPGs.values()) {
@@ -204,7 +195,7 @@ public class Processador {
 		return somaDeProducoes;
 	}
 	
-	public int[] retornaQuantidadeETotal() {
+	private int[] retornaQuantidadeETotal() {
 		int soma = 0;
 		int contador = 0;
 		
@@ -285,6 +276,178 @@ public class Processador {
 			System.out.println(instituicao.getNome() + " (" + instituicao.getSigla() + "):");
 			instituicao.imprimirPpgsFormatadas();
 		}
+	}
+
+
+	public void executaComandoCsv(String next, String next2) {
+		if(next2.equals("anais")) {
+			this.executaComandoCsvParaAnais(next);
+		}
+		
+		else if(next2.equals("artjr")) {
+			this.executaComandoCsvParaArtjr(next);
+		}
+		
+		else if(next2.equals("artpe")) {
+			this.executaComandoCsvParaArtpe(next);
+		}
+		
+		else if(next2.equals("livro")) {
+			this.executaComandoCsvParaLivro(next);
+		}
+		
+		else if(next2.equals("partmu")) {
+			this.executaComandoCsvParaPartmu(next);
+		}
+		
+		else if(next2.equals("tradu")) {
+			this.executaComandoCsvParaTradu(next);
+		}
+		
+		else if(next2.equals("outro")) {
+			this.executaComandoCsvParaOutro(next);
+		}
+		else {
+			throw new InvalidParameterException("Tipo invalido.");
+		}
+	}
+
+
+	private void executaComandoCsvParaOutro(String next) {
+		System.out.println("Natureza;Idioma;Editora;Cidade;Paginas");
+		
+		List<Outro> producoesDaPpgDeEntrada = new ArrayList<Outro>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDeOutro();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirOutroFormatadaParte5();
+		}
+		
+	}
+
+
+	private void executaComandoCsvParaTradu(String next) {
+		System.out.println("Natureza;Titulo;Idioma;Editora;Cidade;Traducao;Paginas");
+		
+		List<Tradu> producoesDaPpgDeEntrada = new ArrayList<Tradu>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDeTradu();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirTraduFormatadaParte5();
+		}
+		
+	}
+
+
+	private void executaComandoCsvParaPartmu(String next) {
+		System.out.println("Natureza;Editora;Cidade;Formacao;Paginas");
+		
+		List<Partmu> producoesDaPpgDeEntrada = new ArrayList<Partmu>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDePartmu();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirPartmuFormatadaParte5();
+		}
+		
+	}
+
+
+	private void executaComandoCsvParaLivro(String next) {
+		System.out.println("Natureza;Titulo;Idioma;Editora;Cidade;ISBN;Paginas");
+		
+		List<Livro> producoesDaPpgDeEntrada = new ArrayList<Livro>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDeLivro();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirLivroFormatadaParte5();
+		}		
+	}
+
+
+	private void executaComandoCsvParaArtpe(String next) {
+		System.out.println("Natureza;Idioma;Editora;Cidade;Volume;Fasciulo;Serie;ISSN;Paginas");
+		
+		List<Artpe> producoesDaPpgDeEntrada = new ArrayList<Artpe>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDeArtpe();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirArtpeFormatadaParte5();
+		}
+		
+	}
+
+
+	private void executaComandoCsvParaArtjr(String next) {
+		System.out.println("Titulo;Idioma;Cidade;Data;ISSN;Paginas");
+		
+		List<Artjr> producoesDaPpgDeEntrada = new ArrayList<Artjr>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDeArtjr();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirArtjrFormatadaParte5();
+		}
+	}
+
+
+	private void executaComandoCsvParaAnais(String next) {
+		System.out.println("Natureza;Titulo;Idioma;Evento;Cidade;Paginas");
+		
+		List<Anais> producoesDaPpgDeEntrada = new ArrayList<Anais>();
+		
+		for(PPG ppg : this.PPGs.values()) {
+			if(ppg.getCodigo().equals(next)) {
+				producoesDaPpgDeEntrada = ppg.retornaListaDeAnais();
+			}
+		}
+		
+		Collections.sort(producoesDaPpgDeEntrada);
+		
+		for(int i = 0; i < producoesDaPpgDeEntrada.size(); i++) {
+			producoesDaPpgDeEntrada.get(i).imprimirAnaisFormatadaParte5();
+		}
+		
 	}
 	
 }

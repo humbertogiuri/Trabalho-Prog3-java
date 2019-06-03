@@ -4,7 +4,6 @@ import java.util.*;
 
 public class T1_2019_1_Etapa04 {
 
-	// br-colsucup-prod-detalhe-bibliografica-2017-2019-02-01-anais
 	public static void main(String[] args) throws IOException {
 
 		Locale.setDefault(new Locale("pt", "BR"));
@@ -33,6 +32,10 @@ public class T1_2019_1_Etapa04 {
 			
 			else if(comando.equals("ies")) {
 				processador.executaComandoIes(entrada.next());
+			}
+			
+			else if(comando.equals("csv")) {
+				processador.executaComandoCsv(entrada.next(), entrada.next());
 			}
 			
 			else {
