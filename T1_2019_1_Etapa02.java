@@ -2,7 +2,7 @@ import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.*;
 
-public class T1_2019_1_Etapa03 {
+public class T1_2019_1_Etapa02 {
 
 	public static void main(String[] args) throws IOException {
 

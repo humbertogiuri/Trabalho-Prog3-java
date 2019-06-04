@@ -7,9 +7,9 @@ public class Artpe extends Producao implements Comparable<Artpe>{
 	private String natureza;
 	private String idioma;
 	private String editora;
-	private String volume;
-	private String fasciculo;
-	private String serie;
+	private int volume;
+	private int fasciculo;
+	private int serie;
 	private String ISSN;
 	
 	public Artpe(String cidade, String natureza, String idioma, String editora, String volume, String fasciculo,
@@ -19,25 +19,22 @@ public class Artpe extends Producao implements Comparable<Artpe>{
 		this.idioma = idioma;
 		this.editora = editora;
 		try {
-			int volumeTeste = Integer.parseInt(volume);
-			this.volume = volume;
+			this.volume = Integer.parseInt(volume);
 		}
 		catch(NumberFormatException e) {
-			this.volume = "";
+			this.volume = 0;
 		}
 		try {
-			int fasciculoTeste = Integer.parseInt(fasciculo);
-			this.fasciculo = fasciculo;
+			this.fasciculo = Integer.parseInt(fasciculo);
 		}
 		catch(NumberFormatException e) {
-			this.fasciculo = "";
+			this.fasciculo = 0;
 		}
 		try{
-			int serieTeste = Integer.parseInt(serie);
-			this.serie = serie;
+			this.serie = Integer.parseInt(serie);
 		}
 		catch(NumberFormatException e) {
-			this.serie = "";
+			this.serie = 0;
 		}
 		this.ISSN = ISSN;
 	}
@@ -66,24 +63,24 @@ public class Artpe extends Producao implements Comparable<Artpe>{
 							return comp;
 						}
 						else {
-							comp = this.volume.compareTo(o.volume);
+							comp = this.volume - o.volume;
 							if(comp != 0) {
 								return comp;
 							}
 							
 							else {
-								comp = this.fasciculo.compareTo(o.fasciculo);
+								comp = this.fasciculo - o.fasciculo;
 								if(comp != 0) {
 									return comp;
 								}
 								
 								else {
-									comp = this.serie.compareTo(o.serie);
+									comp = this.serie - o.serie;
 									if(comp != 0) {
 										return comp;
 									}
 									else {
-										comp = this.ISSN.compareTo(o.ISSN);
+										comp = this.getQuantidadeDePaginas() - o.getQuantidadeDePaginas();
 										if(comp != 0) {
 											return comp;
 										}
@@ -95,25 +92,17 @@ public class Artpe extends Producao implements Comparable<Artpe>{
 				}
 			}
 		}
-		return this.getQuantidadeDePaginas() - o.getQuantidadeDePaginas();
+		return this.ISSN.compareTo(o.ISSN);
 		
 	}
 
 	public void imprimirArtpeFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() != -1) {
-			System.out.println(this.natureza + ";" + this.idioma
-					+ ";" + this.editora + ";" + this.getCidade()
-					+ ";" + this.volume + ";" + this.fasciculo + ";" +
-					this.serie + ";" + this.ISSN + ";" + this.getQuantidadeDePaginas());
-		}
-		
-		else {
-			System.out.println(this.natureza + ";" + this.idioma
-					+ ";" + this.editora + ";" + this.getCidade()
-					+ ";" + this.volume + ";" + this.fasciculo + ";" +
-					this.serie + ";" + this.ISSN + ";");
-		}
-		
+		System.out.println(this.natureza + ";" + this.idioma
+				+ ";" + this.editora + ";" + this.getCidade()
+				+ ";" + this.retornaStringVaziaCasoIntMenorQue1(this.volume) + ";" 
+				+ this.retornaStringVaziaCasoIntMenorQue1(this.fasciculo) + ";" +
+				this.retornaStringVaziaCasoIntMenorQue1(this.serie) 
+				+ ";" + this.ISSN + ";" + this.retornaStringVaziaCasoIntMenorQue1(this.getQuantidadeDePaginas()));
 	}
 	
 	

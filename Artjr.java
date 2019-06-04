@@ -65,17 +65,10 @@ public class Artjr extends Producao implements Comparable<Artjr>{
 	}
 	
 	public void imprimirArtjrFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() == -1) {
-			System.out.println(this.titulo + ";" + this.idioma
-					+ ";" + this.getCidade() + ";" + this.dataDePublicacao
-					+ ";" + this.ISSN + ";");
-		}
-		
-		else {
-			System.out.println(this.titulo + ";" + this.idioma
-					+ ";" + this.getCidade() + ";" + this.dataDePublicacao
-					+ ";" + this.ISSN + ";" + this.getQuantidadeDePaginas());
-		}
+		System.out.println(this.titulo + ";" + this.idioma
+				+ ";" + this.getCidade() + ";" + this.dataDePublicacao
+				+ ";" + this.ISSN + ";"
+				+ this.retornaStringVaziaCasoIntMenorQue1(getQuantidadeDePaginas()));
 		
 	}
 		

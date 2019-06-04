@@ -13,17 +13,10 @@ public class Anais extends Producao implements Comparable<Anais>{
 	}
 	
 	public void imprimirAnaisFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() != -1) {
-			System.out.println(this.natureza + ";" + this.titulo
-					+ ";" + this.idioma + ";" + this.evento
-					+ ";" + this.getCidade() + ";" + this.getQuantidadeDePaginas());
-		}
-		
-		else {
-			System.out.println(this.natureza + ";" + this.titulo
-					+ ";" + this.idioma + ";" + this.evento
-					+ ";" + this.getCidade() + ";");
-		}
+		System.out.println(this.natureza + ";" + this.titulo
+				+ ";" + this.idioma + ";" + this.evento
+				+ ";" + this.getCidade() + ";" 
+				+ this.retornaStringVaziaCasoIntMenorQue1(this.getQuantidadeDePaginas()));
 		
 	}
 	

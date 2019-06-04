@@ -67,4 +67,11 @@ public abstract class Producao {
 		return this.quantidadeDePaginas;
 	}
 	
+	public String retornaStringVaziaCasoIntMenorQue1(int numero) {
+		if(numero < 1) {
+			return "";
+		}
+		return Integer.toString(numero);
+	}
+	
 }

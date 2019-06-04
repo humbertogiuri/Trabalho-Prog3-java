@@ -280,7 +280,10 @@ public class Processador {
 
 
 	public void executaComandoCsv(String next, String next2) {
-		if(next2.equals("anais")) {
+		if(this.PPGs.get(next) == null) {
+			System.out.println("PPG nao encontrado.");
+		}
+		else if(next2.equals("anais")) {
 			this.executaComandoCsvParaAnais(next);
 		}
 		

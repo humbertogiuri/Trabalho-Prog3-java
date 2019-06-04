@@ -58,19 +58,11 @@ public class Livro extends Producao implements Comparable<Livro>{
 	}
 	
 	public void imprimirLivroFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() != -1) {
-			System.out.println(this.natureza + ";" + this.titulo
-					+ ";" + this.idioma + ";" + this.editora
-					+ ";" + this.getCidade() + ";" + 
-					this.ISBN + ";" + this.getQuantidadeDePaginas());
-		}
-		
-		else {
-			System.out.println(this.natureza + ";" + this.titulo
-					+ ";" + this.idioma + ";" + this.editora
-					+ ";" + this.getCidade() + ";" + 
-					this.ISBN + ";" + this.getQuantidadeDePaginas());
-		}
+		System.out.println(this.natureza + ";" + this.titulo
+				+ ";" + this.idioma + ";" + this.editora
+				+ ";" + this.getCidade() + ";" + 
+				this.ISBN + ";" + 
+				this.retornaStringVaziaCasoIntMenorQue1(getQuantidadeDePaginas()));
 		
 	}
 

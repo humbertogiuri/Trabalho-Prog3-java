@@ -42,17 +42,9 @@ public class Partmu extends Producao implements Comparable<Partmu> {
 	}
 
 	public void imprimirPartmuFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() != -1) {
-			System.out.println(this.natureza + ";" + this.editora
-					+ ";" + this.getCidade() + ";" + this.formacaoInstrumental
-					+ ";" + this.getQuantidadeDePaginas());
-		}
-		
-		else {
-			System.out.println(this.natureza + ";" + this.editora
-					+ ";" + this.getCidade() + ";" + this.formacaoInstrumental
-					+ ";");
-		}
+		System.out.println(this.natureza + ";" + this.editora
+				+ ";" + this.getCidade() + ";" + this.formacaoInstrumental
+				+ ";" + this.retornaStringVaziaCasoIntMenorQue1(getQuantidadeDePaginas()));
 		
 	}
 	

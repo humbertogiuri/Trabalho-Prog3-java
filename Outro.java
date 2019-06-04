@@ -42,15 +42,9 @@ public class Outro extends Producao implements Comparable<Outro>{
 	}
 
 	public void imprimirOutroFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() != -1) {
-			System.out.println(this.natureza + ";" + this.idioma
-					+ ";" + this.editora + ";" + this.getCidade() + ";" + this.getQuantidadeDePaginas());
-		}
-		
-		else {
-			System.out.println(this.natureza + ";" + this.idioma
-					+ ";" + this.editora + ";" + this.getCidade() + ";");
-		}
+		System.out.println(this.natureza + ";" + this.idioma
+				+ ";" + this.editora + ";" + this.getCidade() + ";" 
+				+ this.retornaStringVaziaCasoIntMenorQue1(getQuantidadeDePaginas()));
 		
 	}
 	

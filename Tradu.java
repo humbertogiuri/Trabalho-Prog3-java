@@ -60,19 +60,10 @@ public class Tradu extends Producao implements Comparable<Tradu>{
 	}
 
 	public void imprimirTraduFormatadaParte5() {
-		if(this.getQuantidadeDePaginas() != -1) {
-			System.out.println(this.natureza + ";" + this.titulo
-					+ ";" + this.idioma + ";" + this.editora
-					+ ";" + this.getCidade() + ";" + this.idiomaTraducao 
-					+ ";" + this.getQuantidadeDePaginas());
-		}
-		
-		else {
-			System.out.println(this.natureza + ";" + this.titulo
-					+ ";" + this.idioma + ";" + this.editora
-					+ ";" + this.getCidade() + ";" + this.idiomaTraducao 
-					+ ";");
-		}
+		System.out.println(this.natureza + ";" + this.titulo
+				+ ";" + this.idioma + ";" + this.editora
+				+ ";" + this.getCidade() + ";" + this.idiomaTraducao 
+				+ ";" + this.retornaStringVaziaCasoIntMenorQue1(getQuantidadeDePaginas()));
 		
 	}
 	
